@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.environ.get('DEBUG', default=1)))
+DEBUG = os.environ.get('DEBUG', default=True)
 
 ALLOWED_HOSTS = ["*"]
 
@@ -95,11 +95,11 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('SQL_DB_NAME'),
-        'USER': os.environ.get('SQL_DB_USER'),
-        'PASSWORD': os.environ.get('SQL_DB_PASSWORD'),
-        'HOST': os.environ.get('SQL_DB_HOST'),
-        'PORT': os.environ.get('SQL_DB_PORT'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
@@ -156,8 +156,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://51.250.67.65',
-    'https://51.250.67.65',
+    'http://84.201.167.213',
+    'https://84.201.167.213',
     'http://localhost:8000',
 ]
 
