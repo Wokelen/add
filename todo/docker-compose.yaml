@@ -26,9 +26,9 @@ services:
     environment:
       SQL_DB_HOST: pgdb
       SQL_DB_PORT: 5432
-      SQL_DB_NAME: ${SQL_DB_NAME}
-      SQL_DB_USER: ${SQL_DB_USER}
-      SQL_DB_PASSWORD: ${SQL_DB_PASSWORD}
+      SQL_DB_NAME: ${DB_NAME}
+      SQL_DB_USER: ${DB_USER}
+      SQL_DB_PASSWORD: ${DB_PASSWORD}
       SECRET_KEY: ${SECRET_KEY}
       DEBUG: ${DEBUG}
       SOCIAL_AUTH_VK_OAUTH2_KEY: ${SOCIAL_AUTH_VK_OAUTH2_KEY}
@@ -45,9 +45,9 @@ services:
     environment:
       SQL_DB_HOST: pgdb
       SQL_DB_PORT: 5432
-      SQL_DB_NAME: ${SQL_DB_NAME}
-      SQL_DB_USER: ${SQL_DB_USER}
-      SQL_DB_PASSWORD: ${SQL_DB_PASSWORD}
+      SQL_DB_NAME: ${DB_NAME}
+      SQL_DB_USER: ${DB_USER}
+      SQL_DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       api:
         condition: service_started
@@ -62,9 +62,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: ${SQL_DB_NAME}
-      POSTGRES_USER: ${SQL_DB_USER}
-      POSTGRES_PASSWORD: ${SQL_DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     restart: always
      # Задание имени контейнера для сервиса pgdb
     container_name: pgdb
@@ -77,25 +77,10 @@ services:
       timeout: 5s
       retries: 15
 
-  createuser:
-    build: .
-    container_name: superuser
-    entrypoint: ''
-    environment:
-      SQL_DB_HOST: pgdb
-      SQL_DB_PORT: 5432
-      SQL_DB_NAME: ${SQL_DB_NAME}
-      SQL_DB_USER: ${SQL_DB_USER}
-      SQL_DB_PASSWORD: ${SQL_DB_PASSWORD}
-    volumes:
-      - create_user:/usr/src/app
-    depends_on:
-      migrations:
-        condition: service_started
-    command: python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('${SUPERUSER_USERNAME}', '${SUPERUSER_EMAIL}', '${SUPERUSER_PASSWORD}')"
+ 
 
 
 volumes:
   pgdb_data:
   frontend:
-  create_user:
+  
